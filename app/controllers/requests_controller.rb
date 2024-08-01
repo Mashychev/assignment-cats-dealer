@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RequestsController < ApplicationController
   def create
     response = RestClient.get('https://nh7b1g9g23.execute-api.us-west-2.amazonaws.com/dev/cats/json')

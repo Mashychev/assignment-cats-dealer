@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::API
   rescue_from ActionController::ParameterMissing, with: :unprocessable_entity
   rescue_from ArgumentError, with: :unprocessable_entity
