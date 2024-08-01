@@ -3,16 +3,20 @@
 class CatFinderService
   ADAPTORS = [CatFinderAdaptors::CatsUnlimitedAdaptor].freeze
 
-  def initialize(location, cat_name)
+  def self.call(location, cat_type)
+    new(location, cat_type).call
+  end
+
+  def initialize(location, cat_type)
     @location = location
-    @cat_name = cat_name
+    @cat_type = cat_type
   end
 
   def call
     cats_data = fetch_all_cats_data
     raise NoDataAvailableError, 'No data available from any source' if cats_data.empty?
 
-    filtered_cats = filter_cats(cats_data, @location, @cat_name)
+    filtered_cats = filter_cats(cats_data)
     find_best_match(filtered_cats)
   end
 
@@ -22,9 +26,9 @@ class CatFinderService
     ADAPTORS.flat_map(&:fetch_data)
   end
 
-  def filter_cats(cats_data, location, cat_name)
+  def filter_cats(cats_data)
     cats_data.select do |cat|
-      cat['location'] == location && cat['name'] == cat_name
+      cat['location'] == @location && cat['name'] == @cat_type
     end
   end
 

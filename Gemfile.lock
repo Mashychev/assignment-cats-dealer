@@ -85,8 +85,6 @@ GEM
       dotenv (= 3.1.2)
       railties (>= 6.1)
     erubi (1.13.0)
-    faker (3.4.2)
-      i18n (>= 1.8.11, < 2)
     ffi (1.17.0-aarch64-linux-gnu)
     ffi (1.17.0-aarch64-linux-musl)
     ffi (1.17.0-arm-linux-gnu)
@@ -291,7 +289,6 @@ PLATFORMS
 
 DEPENDENCIES
   dotenv-rails
-  faker
   listen (~> 3.5)
   pry
   puma

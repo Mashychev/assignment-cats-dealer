@@ -7,9 +7,7 @@ RSpec.describe CatFinderService do
   let(:cat_name) { 'American Curl' }
   let(:service) { described_class.new(location, cat_name) }
 
-  before do
-    allow(CatFinderAdaptors::CatsUnlimitedAdaptor).to receive(:fetch_data).and_return(cats_data)
-  end
+  before { allow(CatFinderAdaptors::CatsUnlimitedAdaptor).to receive(:fetch_data).and_return(cats_data) }
 
   describe '#call' do
     context 'when there are matching cats' do

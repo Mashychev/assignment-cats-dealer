@@ -24,9 +24,7 @@ RSpec.describe CatFinderAdaptors::CatsUnlimitedAdaptor, :vcr do
     end
 
     context 'when an exception is raised' do
-      before do
-        allow(Net::HTTP).to receive(:get_response).and_raise(Net::ReadTimeout)
-      end
+      before { allow(Net::HTTP).to receive(:get_response).and_raise(Net::ReadTimeout) }
 
       it 'logs the exception and returns an empty array' do
         allow(Rails.logger).to receive(:error).with(instance_of(String)).with(/Net::ReadTimeout/)
