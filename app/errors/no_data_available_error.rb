@@ -1,0 +1,1 @@
+class NoDataAvailableError < StandardError; end
