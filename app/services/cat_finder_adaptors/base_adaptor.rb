@@ -5,7 +5,7 @@ require 'json'
 require 'uri'
 
 module CatFinderAdaptors
-  class CatDataAdaptor
+  class BaseAdaptor
     def self.fetch_data
       raise NotImplementedError, 'This method should be overridden in a subclass'
     end
@@ -20,6 +20,10 @@ module CatFinderAdaptors
     rescue StandardError => e
       log_error(e)
       []
+    end
+
+    def self.log_error(error)
+      Rails.logger.error(error.message)
     end
   end
 end

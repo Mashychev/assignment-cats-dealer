@@ -113,3 +113,6 @@ Rails/CreateTableWithTimestamps:
 
 Rails/I18nLocaleTexts:
   Enabled: no
+
+RSpec/VerifiedDoubles:
+  Enabled: false

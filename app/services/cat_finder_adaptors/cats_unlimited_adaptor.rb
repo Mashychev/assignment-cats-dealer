@@ -5,7 +5,7 @@ require 'json'
 require 'uri'
 
 module CatFinderAdaptors
-  class CatsUnlimitedAdaptor < CatDataAdaptor
+  class CatsUnlimitedAdaptor < BaseAdaptor
     def self.fetch_data
       get_json_data(ENV.fetch('CATS_UNLIMITED_URL'))
     end

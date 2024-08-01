@@ -27,4 +27,6 @@ end
 group :test do
   gem 'rspec-rails', '~> 4.0.1'
   gem 'shoulda-matchers', '~> 5.3.0'
+  gem 'vcr'
+  gem 'webmock'
 end

@@ -15,9 +15,10 @@ RSpec.describe CatFinderService do
     context 'when there are matching cats' do
       let(:cats_data) do
         [
-          { 'name' => 'American Curl', 'price' => 450, 'location' => 'Donezk', 'image' => 'https://olxua-ring07' },
+          { 'name' => 'American Curl', 'price' => 450, 'location' => 'Lviv', 'image' => 'https://olxua-ring07' },
           { 'name' => 'Siberian', 'price' => 300, 'location' => 'Donezk', 'image' => 'https://olxua-ring08' },
-          { 'name' => 'American Curl', 'price' => 400, 'location' => 'Donezk', 'image' => 'https://olxua-ring09' }
+          { 'name' => 'American Curl', 'price' => 400, 'location' => 'Donezk', 'image' => 'https://olxua-ring09' },
+          { 'name' => 'American Curl', 'price' => 450, 'location' => 'Donezk', 'image' => 'https://olxua-ring10' }
         ]
       end
 
