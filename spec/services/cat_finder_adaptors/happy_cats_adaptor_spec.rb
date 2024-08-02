@@ -3,11 +3,11 @@
 require 'rails_helper'
 require 'vcr'
 
-RSpec.describe CatFinderAdaptors::CatsUnlimitedAdaptor, :vcr do
+RSpec.describe CatFinderAdaptors::HappyCatsAdaptor, :vcr do
   describe '.fetch_data' do
     context 'when the request is successful' do
-      it 'returns parsed JSON data', vcr: { cassette_name: 'cats_unlimited_success' } do
-        VCR.use_cassette('cats_unlimited_success') do
+      it 'returns parsed XML data', vcr: { cassette_name: 'happy_cats_success' } do
+        VCR.use_cassette('happy_cats_success') do
           expect(described_class.fetch_data).not_to be_empty
         end
       end

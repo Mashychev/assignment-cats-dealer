@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'net/http'
-require 'json'
 require 'uri'
 
 module CatFinderAdaptors
@@ -10,13 +9,13 @@ module CatFinderAdaptors
       raise NotImplementedError, 'This method should be overridden in a subclass'
     end
 
-    def self.get_json_data(url)
+    def self.get_data(url, data_format)
       uri = URI(url)
       response = Net::HTTP.get_response(uri)
 
       raise "Failed to fetch data from #{url}: #{response.message}" unless response.is_a?(Net::HTTPSuccess)
 
-      JSON.parse(response.body)
+      CatDataParser.public_send("parse_#{data_format}".to_sym, response.body)
     rescue StandardError => e
       log_error(e)
       []

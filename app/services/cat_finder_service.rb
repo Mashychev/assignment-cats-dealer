@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
 class CatFinderService
-  ADAPTORS = [CatFinderAdaptors::CatsUnlimitedAdaptor].freeze
+  ADAPTORS = [
+    CatFinderAdaptors::CatsUnlimitedAdaptor,
+    CatFinderAdaptors::HappyCatsAdaptor
+  ].freeze
 
   def self.call(location, cat_type)
     new(location, cat_type).call
