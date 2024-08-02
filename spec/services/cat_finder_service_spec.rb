@@ -4,39 +4,52 @@ require 'rails_helper'
 
 RSpec.describe CatFinderService do
   let(:location) { 'Donezk' }
-  let(:cat_name) { 'American Curl' }
-  let(:service) { described_class.new(location, cat_name) }
+  let(:cat_type) { 'American Curl' }
+  let(:service) { described_class.new(location, cat_type) }
 
-  before { allow(CatFinderAdaptors::CatsUnlimitedAdaptor).to receive(:fetch_data).and_return(cats_data) }
+  let(:cats_data) do
+    [
+      { 'cat_type' => 'American Curl', 'price' => 450, 'location' => 'Lviv', 'image' => 'https://olxua-ring07' },
+      { 'cat_type' => 'Siberian', 'price' => 300, 'location' => 'Donezk', 'image' => 'https://olxua-ring08' },
+      { 'cat_type' => 'American Curl', 'price' => 400, 'location' => 'Donezk', 'image' => 'https://olxua-ring09' },
+      { 'cat_type' => 'American Curl', 'price' => 450, 'location' => 'Lviv', 'image' => 'https://olxua-ring10' },
+      { 'cat_type' => 'American Curl', 'price' => 450, 'location' => 'Lviv', 'image' => 'https://olxua-ring01' }
+    ]
+  end
+
+  before { allow(service).to receive(:fetch_all_cats_data).and_return(cats_data) }
 
   describe '#call' do
     context 'when there are matching cats' do
-      let(:cats_data) do
-        [
-          { 'name' => 'American Curl', 'price' => 450, 'location' => 'Lviv', 'image' => 'https://olxua-ring07' },
-          { 'name' => 'Siberian', 'price' => 300, 'location' => 'Donezk', 'image' => 'https://olxua-ring08' },
-          { 'name' => 'American Curl', 'price' => 400, 'location' => 'Donezk', 'image' => 'https://olxua-ring09' },
-          { 'name' => 'American Curl', 'price' => 450, 'location' => 'Donezk', 'image' => 'https://olxua-ring10' }
-        ]
+      context 'when only one cat matched' do
+        it 'returns the cat with the lowest price for the given location and cat_type' do
+          result = service.call
+          expect(result).to eq([{ 'cat_type' => 'American Curl', 'price' => 400, 'location' => 'Donezk', 'image' => 'https://olxua-ring09' }])
+        end
       end
 
-      it 'returns the cat with the lowest price for the given location and name' do
-        result = service.call
-        expect(result).to eq({ 'name' => 'American Curl', 'price' => 400, 'location' => 'Donezk', 'image' => 'https://olxua-ring09' })
+      context 'when there are several matches' do
+        let(:location) { 'Lviv' }
+        let(:cat_type) { 'American Curl' }
+
+        it 'returns the cats with the lowest price for the given location and cat_type' do
+          result = service.call
+          expect(result.size).to be > 1
+        end
       end
     end
 
     context 'when there are no matching cats' do
       let(:cats_data) do
         [
-          { 'name' => 'Siberian', 'price' => 300, 'location' => 'Donezk', 'image' => 'https://olxua-ring08' },
-          { 'name' => 'British Shorthair', 'price' => 500, 'location' => 'Kyiv', 'image' => 'https://olxua-ring10' }
+          { 'cat_type' => 'Siberian', 'price' => 300, 'location' => 'Donezk', 'image' => 'https://olxua-ring08' },
+          { 'cat_type' => 'British Shorthair', 'price' => 500, 'location' => 'Kyiv', 'image' => 'https://olxua-ring10' }
         ]
       end
 
       it 'returns nil' do
         result = service.call
-        expect(result).to be_nil
+        expect(result).to eq([])
       end
     end
 
@@ -48,31 +61,31 @@ RSpec.describe CatFinderService do
       end
     end
 
-    context 'when adapters return data but no matches for the given location and name' do
+    context 'when adapters return data but no matches for the given location and cat_type' do
       let(:cats_data) do
         [
-          { 'name' => 'Siberian', 'price' => 300, 'location' => 'Donezk', 'image' => 'https://olxua-ring08' },
-          { 'name' => 'British Shorthair', 'price' => 500, 'location' => 'Kyiv', 'image' => 'https://olxua-ring10' }
+          { 'cat_type' => 'Siberian', 'price' => 300, 'location' => 'Donezk', 'image' => 'https://olxua-ring08' },
+          { 'cat_type' => 'British Shorthair', 'price' => 500, 'location' => 'Kyiv', 'image' => 'https://olxua-ring10' }
         ]
       end
 
-      it 'returns nil because no cats match the given location and name' do
+      it 'returns nil because no cats match the given location and cat_type' do
         result = service.call
-        expect(result).to be_nil
+        expect(result).to eq([])
       end
     end
 
-    context 'when adapters return data but with different locations and names' do
+    context 'when adapters return data but with different locations and cat_types' do
       let(:cats_data) do
         [
-          { 'name' => 'Persian', 'price' => 300, 'location' => 'Lviv', 'image' => 'https://olxua-ring08' },
-          { 'name' => 'Bengal', 'price' => 600, 'location' => 'Odesa', 'image' => 'https://olxua-ring10' }
+          { 'cat_type' => 'Persian', 'price' => 300, 'location' => 'Lviv', 'image' => 'https://olxua-ring08' },
+          { 'cat_type' => 'Bengal', 'price' => 600, 'location' => 'Odesa', 'image' => 'https://olxua-ring10' }
         ]
       end
 
-      it 'returns nil because no cats match the given location and name' do
+      it 'returns nil because no cats match the given location and cat_type' do
         result = service.call
-        expect(result).to be_nil
+        expect(result).to eq([])
       end
     end
   end

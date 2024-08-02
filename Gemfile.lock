@@ -79,7 +79,6 @@ GEM
     crass (1.0.6)
     date (3.3.4)
     diff-lcs (1.5.1)
-    domain_name (0.6.20240107)
     dotenv (3.1.2)
     dotenv-rails (3.1.2)
       dotenv (= 3.1.2)
@@ -98,9 +97,6 @@ GEM
     globalid (1.2.1)
       activesupport (>= 6.1)
     hashdiff (1.1.0)
-    http-accept (1.7.0)
-    http-cookie (1.0.6)
-      domain_name (~> 0.5)
     i18n (1.14.5)
       concurrent-ruby (~> 1.0)
     json (2.7.2)
@@ -118,9 +114,6 @@ GEM
       net-smtp
     marcel (1.0.4)
     method_source (1.1.0)
-    mime-types (3.5.2)
-      mime-types-data (~> 3.2015)
-    mime-types-data (3.2024.0702)
     mini_mime (1.1.5)
     minitest (5.24.1)
     net-imap (0.4.14)
@@ -132,7 +125,6 @@ GEM
       timeout
     net-smtp (0.5.0)
       net-protocol
-    netrc (0.11.0)
     nio4r (2.7.3)
     nokogiri (1.16.7-aarch64-linux)
       racc (~> 1.4)
@@ -194,11 +186,6 @@ GEM
     rb-inotify (0.11.1)
       ffi (~> 1.0)
     regexp_parser (2.9.2)
-    rest-client (2.1.0)
-      http-accept (>= 1.7.0, < 2.0)
-      http-cookie (>= 1.0.2, < 2.0)
-      mime-types (>= 1.16, < 4.0)
-      netrc (~> 0.8)
     rexml (3.3.4)
       strscan
     rspec-core (3.13.0)
@@ -293,7 +280,6 @@ DEPENDENCIES
   pry
   puma
   rails (~> 7.0.0)
-  rest-client
   rspec-rails (~> 4.0.1)
   rubocop
   rubocop-performance

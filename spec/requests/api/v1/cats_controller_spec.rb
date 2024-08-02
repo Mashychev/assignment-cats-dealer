@@ -17,8 +17,8 @@ RSpec.describe Api::V1::CatsController, type: :request do
     context 'when data is available' do
       let(:cats_data) do
         [
-          { 'name' => 'American Curl', 'price' => 450, 'location' => 'Donezk', 'image' => 'https://olxua-ring07' },
-          { 'name' => 'Siberian', 'price' => 300, 'location' => 'Donezk', 'image' => 'https://olxua-ring08' }
+          { 'cat_type' => 'American Curl', 'price' => 450, 'location' => 'Donezk', 'image' => 'https://olxua-ring07' },
+          { 'cat_type' => 'Siberian', 'price' => 300, 'location' => 'Donezk', 'image' => 'https://olxua-ring08' }
         ]
       end
 

@@ -8,7 +8,6 @@ gem 'rails', '~> 7.0.0'
 
 gem 'dotenv-rails', require: 'dotenv/load'
 gem 'puma'
-gem 'rest-client'
 
 group :development do
   gem 'listen', '~> 3.5'
