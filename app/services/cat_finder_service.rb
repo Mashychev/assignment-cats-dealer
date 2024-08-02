@@ -39,6 +39,8 @@ class CatFinderService
     return [] if cats.empty?
 
     min_price = cats.min_by { |cat| cat['price'] }['price']
-    cats.select { |cat| cat['price'] == min_price }
+    best_matches = cats.select { |cat| cat['price'] == min_price }
+
+    best_matches.uniq { |cat| cat['image'] }
   end
 end

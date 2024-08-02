@@ -13,7 +13,8 @@ RSpec.describe CatFinderService do
       { 'cat_type' => 'Siberian', 'price' => 300, 'location' => 'Donezk', 'image' => 'https://olxua-ring08' },
       { 'cat_type' => 'American Curl', 'price' => 400, 'location' => 'Donezk', 'image' => 'https://olxua-ring09' },
       { 'cat_type' => 'American Curl', 'price' => 450, 'location' => 'Lviv', 'image' => 'https://olxua-ring10' },
-      { 'cat_type' => 'American Curl', 'price' => 450, 'location' => 'Lviv', 'image' => 'https://olxua-ring01' }
+      { 'cat_type' => 'American Curl', 'price' => 450, 'location' => 'Lviv', 'image' => 'https://olxua-ring01' },
+      { 'cat_type' => 'Siberian', 'price' => 300, 'location' => 'Donezk', 'image' => 'https://olxua-ring08' }
     ]
   end
 
@@ -29,12 +30,26 @@ RSpec.describe CatFinderService do
       end
 
       context 'when there are several matches' do
-        let(:location) { 'Lviv' }
-        let(:cat_type) { 'American Curl' }
+        context 'when there are two or more different cats in all shops with the same cost, location and cat_type' do
+          let(:location) { 'Lviv' }
+          let(:cat_type) { 'American Curl' }
 
-        it 'returns the cats with the lowest price for the given location and cat_type' do
-          result = service.call
-          expect(result.size).to be > 1
+          it 'returns the cats with the lowest price for the given location and cat_type' do
+            result = service.call
+            expect(result).to eq([{ 'cat_type' => 'American Curl', 'price' => 450, 'location' => 'Lviv', 'image' => 'https://olxua-ring07' },
+                                  { 'cat_type' => 'American Curl', 'price' => 450, 'location' => 'Lviv', 'image' => 'https://olxua-ring10' },
+                                  { 'cat_type' => 'American Curl', 'price' => 450, 'location' => 'Lviv', 'image' => 'https://olxua-ring01' }])
+          end
+        end
+
+        context 'when there are two or more the same cats from different shops' do
+          let(:location) { 'Donezk' }
+          let(:cat_type) { 'Siberian' }
+
+          it 'returns the cats with the lowest price for the given location and cat_type' do
+            result = service.call
+            expect(result).to eq([{ 'cat_type' => 'Siberian', 'price' => 300, 'location' => 'Donezk', 'image' => 'https://olxua-ring08' }])
+          end
         end
       end
     end
