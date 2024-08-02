@@ -38,7 +38,7 @@ class CatFinderService
   def find_all_best_matches(cats)
     return [] if cats.empty?
 
-    min_price = cats.min_by { |cat| cat['price'].to_i }['price'].to_i
-    cats.select { |cat| cat['price'].to_i == min_price }
+    min_price = cats.min_by { |cat| cat['price'] }['price']
+    cats.select { |cat| cat['price'] == min_price }
   end
 end

@@ -30,7 +30,8 @@ class CatDataParser
     when Hash
       object.each_with_object({}) do |(key, value), result|
         new_key = key == 'name' ? 'cat_type' : key
-        result[new_key] = rename_keys(value)
+        new_value = key == 'price' ? value.to_i : rename_keys(value)
+        result[new_key] = new_value
       end
     else
       object
